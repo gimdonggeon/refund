@@ -24,8 +24,12 @@ public class CurrencyExchange {
     private BigDecimal amountAfterExchange;
     private String status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_currency_id", insertable = false, updatable = false)
     private Currency toCurrency;
 
     public void cancel() {
