@@ -6,6 +6,7 @@ import com.sparta.currency_user.entity.CurrencyExchange;
 import com.sparta.currency_user.repository.CurrencyExchangeRepository;
 import com.sparta.currency_user.repository.CurrencyRepository;
 import com.sparta.currency_user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,9 @@ public class CurrencyExchangeService {
 
     public List<CurrencyExchangeResponseDto> findByUserId(Long userId) {
         List<CurrencyExchange> exchanges = currencyExchangeRepository.findAllByUserId(userId);
+        if (exchanges.isEmpty()) {
+            throw new EntityNotFoundException("사용자와 관련된 환전 기록이 없습니다.");
+        }
         return exchanges.stream()
                 .map(CurrencyExchangeResponseDto::currencyExchangeResponseDto)
                 .toList();
@@ -53,6 +57,9 @@ public class CurrencyExchangeService {
     @Transactional
     public void deleteByUserId(Long userId) {
         List<CurrencyExchange> exchanges = currencyExchangeRepository.findAllByUserId(userId);
+        if (exchanges.isEmpty()) {
+            throw new EntityNotFoundException("사용자와 관련된 환전 기록이 없습니다.");
+        }
         currencyExchangeRepository.deleteAll(exchanges);
     }
 }

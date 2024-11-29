@@ -17,15 +17,19 @@ public class CurrencyService {
     private final CurrencyRepository currencyRepository;
 
     public CurrencyResponseDto findById(Long id) {
+        Currency currency = findCurrencyById(id);
         return new CurrencyResponseDto(findCurrencyById(id));
     }
 
     public Currency findCurrencyById(Long id) {
-        return currencyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("통화를 찾을 수 없습니다."));
+        return currencyRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("통화를 찾을 수 없습니다."));
     }
 
     public List<CurrencyResponseDto> findAll() {
-        return currencyRepository.findAll().stream().map(CurrencyResponseDto::toDto).toList();
+        return currencyRepository.findAll().stream()
+                .map(CurrencyResponseDto::toDto)
+                .toList();
     }
 
     @Transactional
