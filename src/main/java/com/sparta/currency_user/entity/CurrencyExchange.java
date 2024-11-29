@@ -38,6 +38,11 @@ public class CurrencyExchange {
 
     public void cancel() {
         this.status = "cancelled";
+
+        if (this.amountAfterExchange == null) {
+            throw new IllegalArgumentException("환전이 완료되지 않았습니다. 환전 취소가 불가능합니다.");
+        }
+            user.refundAmount(amountAfterExchange);
     }
 
     public void calculateAmountAfterExchange(BigDecimal exchangeRate) {

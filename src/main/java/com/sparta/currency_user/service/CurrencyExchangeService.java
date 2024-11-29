@@ -31,6 +31,8 @@ public class CurrencyExchangeService {
 
         CurrencyExchange currencyExchange = currencyExchangeRequestDto.toEntity();
 
+        currencyExchange.calculateAmountAfterExchange(toCurrency.getExchangeRate());
+
         CurrencyExchange savedCurrencyExchange = currencyExchangeRepository.save(currencyExchange);
 
         return new CurrencyExchangeResponseDto(savedCurrencyExchange);
@@ -52,6 +54,8 @@ public class CurrencyExchangeService {
                 .orElseThrow(() -> new IllegalArgumentException("환전 요청이 존재하지 않습니다."));
 
         currencyExchange.cancel();
+
+        userRepository.save(currencyExchange.getUser());
     }
 
     @Transactional

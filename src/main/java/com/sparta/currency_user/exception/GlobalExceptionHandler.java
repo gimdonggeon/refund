@@ -34,6 +34,13 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleIllegalStateException(IllegalStateException illegalStateException) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", illegalStateException.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneralException(Exception exception) {
         Map<String, String> errorResponse = new HashMap<>();
         errorResponse.put("error", "예상치 못한 오류가 발생하였습니다.");
