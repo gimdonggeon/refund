@@ -18,8 +18,12 @@ public class CurrencyExchange {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "user_id")
     private Long userId;
+
+    @Column(name = "to_currency_id")
     private Long toCurrencyId;
+
     private BigDecimal amountBeforeExchangeKrw;
     private BigDecimal amountAfterExchange;
     private String status;
