@@ -75,3 +75,8 @@
     ```
 
 ---
+## ERD 
+
+URL : https://dbdiagram.io/d/6723904ab1b39dd85815b6d8
+
+---
