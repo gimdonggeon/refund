@@ -26,7 +26,7 @@ public class CurrencyExchangeService {
         userRepository.findById(currencyExchangeRequestDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
 
-        var toCurrency = currencyRepository.findById(currencyExchangeRequestDto.getUserId())
+        var toCurrency = currencyRepository.findById(currencyExchangeRequestDto.getToCurrencyId())
                 .orElseThrow(() -> new IllegalArgumentException("환전 대상 통화가 존재하지 않습니다."));
 
         CurrencyExchange currencyExchange = currencyExchangeRequestDto.toEntity();
